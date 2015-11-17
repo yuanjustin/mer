@@ -347,7 +347,6 @@ function noTypeKeyPress(event) {
             case 44://，
                 if( $('.selectSpan').hasClass('newspan')){
                     $('<span class="endspan">，</span>').insertBefore( $('.selectSpan'));
-
                 }else{
                     $('<span class="endspan">，</span>').insertAfter(getCaretPos());
 
@@ -471,6 +470,11 @@ function TypeKeyPress(event) {
                     addspan();
                 }
                 return true;//不要屏蔽退格键
+
+            case 46://.
+                return false;//不要屏蔽.
+
+                break;
             case 32:
                 if(selectimport==true){
                     Dialog.show(document.querySelector('#selectImportPatient'));
