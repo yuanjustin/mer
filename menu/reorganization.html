@@ -3,11 +3,14 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
-    <link rel="stylesheet" href="../css/material.css"/>
+    <!--引入wangEditor.css-->
+    <link rel="stylesheet" type="text/css" href="../css/wangEditor-1.3.12.css">
+    <link rel="stylesheet" type="text/css" href="../css/material.css"/>
     <script language="javascript" type="text/javascript" src="../js/jquery-1.11.3.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/default.css"/>
     <link rel="stylesheet" type="text/css" href="../css/component.css"/>
     <script src="../js/modernizr.custom.js"></script>
+
 </head>
 <body>
 
@@ -58,9 +61,6 @@
                         <li ripple>
                             <h2>
                                 不支持</h2>
-                        </li>
-                        <li ripple>
-                            dfsdf
                         </li>
                         <li ripple>
                             dfsdf
@@ -180,8 +180,10 @@
         </div>
     </div>
 </div>
+
 <div id="print" hidden>
-    <textarea class="text-input" id="printText"></textarea>
+    <textarea class="text-input" id="printText" style='height:300px; width:100%;'></textarea>
+    <!--创建一个 textarea 标签-->
 
 </div>
 <script>
@@ -199,13 +201,13 @@
                         "order": "reorganizationClass", "disease": $('#dieaseName').val(), "term": termspan
                     }),
                     function (result) {
-                        $('#support').append('<li ripple><h2>支持<h2></li>');
+                        $('#support').append('<li ripple style="float:top"><h2>支持<h2></li>');
                         $.each(result[0], function (i, item) {
-                            $('#support').append('<li ripple>' + item + '</li>');
+                            $('#support').append('<li ripple style="float:top">' + item + '</li>');
                         });
-                        $('#nosupport').append('<li ripple><h2>不支持<h2></li>');
+                        $('#nosupport').append('<li ripple style="float:top"><h2>不支持<h2></li>');
                         $.each(result[1], function (i, item) {
-                            $('#nosupport').append('<li ripple>' + item + '</li>');
+                            $('#nosupport').append('<li ripple style="float:top">' + item + '</li>');
                         });
 
                     }
@@ -305,9 +307,9 @@
         } else {
             $('#printText').html('')
             if ($('#switchModel', window.parent.document).text() == "切换到住院病历") {
-                $('#print').html('<p><strong size="12px">病人信息:</strong>' + $('#br', parent.document).find('span:not(.newspan)').text() + '<br><strong size="12px">主诉:</strong>' + $('#zs', parent.document).find('span:not(.newspan)').text() + '<br><strong size="12px">病史：</strong>' + $('#bs', parent.document).find('span:not(.newspan)').text() + '<br><strong size="12px">体检：</strong>' + $('#tj', parent.document).find('span:not(.newspan)').text() + '<br><strong size="12px">初步诊断：</strong>' + $('#cb', parent.document).find('span:not(.newspan)').text() + '<br><strong size="12px">处理意见：</strong>' + $('#cl', parent.document).find('span:not(.newspan)').text());
+                editor.html('<p><strong size="12px">病人信息:</strong>' + $('#br', parent.document).find('span:not(.newspan)').text() + '<br><strong size="12px">主诉:</strong>' + $('#zs', parent.document).find('span:not(.newspan)').text() + '<br><strong size="12px">病史：</strong>' + $('#bs', parent.document).find('span:not(.newspan)').text() + '<br><strong size="12px">体检：</strong>' + $('#tj', parent.document).find('span:not(.newspan)').text() + '<br><strong size="12px">初步诊断：</strong>' + $('#cb', parent.document).find('span:not(.newspan)').text() + '<br><strong size="12px">处理意见：</strong>' + $('#cl', parent.document).find('span:not(.newspan)').text());
             } else {
-                $('#print').html(
+                editor.html(
                         '<p><strong size="12px">一般项目:</strong>' + $('#yb', parent.document).find('span:not(.newspan)').text() +
                         '<br><strong size="12px">主诉:</strong>' + $('#zs0', parent.document).find('span:not(.newspan)').text() +
                         '<br><strong size="12px">现病史：</strong>' + $('#xb', parent.document).find('span:not(.newspan)').text() +
@@ -345,6 +347,24 @@
         return obj2;
     }
 </script>
+
+
 </body>
 
+<script type="text/javascript" src='../js/wangEditor-1.3.12.min.js'></script>
+<!--注意：javascript必须放在body最后，否则可能会出现问题-->
+<script type="text/javascript">
+    $(function () {
+        editor = $('#printText').wangEditor({
+            'menuConfig': [
+                ['viewSourceCode'],
+                ['bold', 'underline', 'italic', 'foreColor', 'backgroundColor', 'strikethrough'],
+                ['blockquote', 'fontFamily', 'fontSize', 'setHead', 'list', 'justify'],
+                ['createLink', 'unLink', 'insertTable'],
+                ['insertImage', 'insertVideo', 'insertCode'],
+                ['undo', 'redo', 'fullScreen']
+            ]
+        });
+    });
+</script>
 </html>
